@@ -1,23 +1,23 @@
 version: '2'
 services:
-  nyc.social.dockerfully.com:
-    container_name: nyc.social.dockerfully.com
+  iowa.social.dockerfully.com:
+    container_name: iowa.social.dockerfully.com
     image: dockerfully/diaspora:latest 
     build:
       context: ../
     links:
-      - postgres-nyc
-      - redis-nyc
+      - postgres-iowa
+      - redis-iowa
     volumes:
-      - diaspora-images-nyc:/home/diaspora/diaspora/public/uploads/images
+      - diaspora-images-iowa:/home/diaspora/diaspora/public/uploads/images
       - ./diaspora.yml:/home/diaspora/diaspora/config/diaspora.yml:ro
       - ./database.yml:/home/diaspora/diaspora/config/database.yml:ro
     ports:
-      - '3059:3059'
+      - '3069:3069'
     restart: always
     environment:
-      - VIRTUAL_HOST=nyc.social.dockerfully.com
-      - LETSENCRYPT_HOST=nyc.social.dockerfully.com
+      - VIRTUAL_HOST=iowa.social.dockerfully.com
+      - LETSENCRYPT_HOST=iowa.social.dockerfully.com
     networks:
       - mongonet
     restart: always
@@ -25,33 +25,33 @@ services:
 
 
 
-  postgres-nyc:
-    container_name: postgres-nyc
+  postgres-iowa:
+    container_name: postgres-iowa
     read_only: false
     mem_limit: 8G
     image: 'bitnami/postgresql:11'
     tmpfs:
     - /tmp
     ports:
-      - '5550:5550'
+      - '5566:5566'
     volumes:
-      - 'postgresql_data-nyc:/bitnami/postgresql'
-      - 'postgres-nyc:/var/lib/postgresql/data'
-      - 'postgres-run-nyc:/var/run/postgresql'
+      - 'postgresql_data-iowa:/bitnami/postgresql'
+      - 'postgres-iowa:/var/lib/postgresql/data'
+      - 'postgres-run-iowa:/var/run/postgresql'
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
 #      - 'POSTGRES_PASSWORD=somepassword123'
       - 'POSTGRES_DATABASE=diaspora_production'
       - 'POSTGRES_USERNAME=diaspora'
-      - 'POSTGRESQL_PORT_NUMBER=5550'
+      - 'POSTGRESQL_PORT_NUMBER=5566'
     restart: always
     networks:
       - mongonet
 
 
 
-  redis-nyc:
-    container_name: redis-nyc
+  redis-iowa:
+    container_name: redis-iowa
     image: dockerfully/redis:latest
     build:
       context: ../redis/5.0
@@ -59,9 +59,9 @@ services:
     read_only: false
     tmpfs:
     - /tmp
-    command: redis-server --port 6399 --appendonly yes
+    command: redis-server --port 7899 --appendonly yes
     volumes:
-      - redis-nyc:/data
+      - redis-iowa:/data
     restart: always
     networks:
       - mongonet
@@ -69,11 +69,11 @@ services:
 
 
 volumes:
-  diaspora-images-nyc:
-  postgres-nyc:
-  postgres-run-nyc:
-  redis-nyc:
-  postgresql_data-nyc:
+  diaspora-images-iowa:
+  postgres-iowa:
+  postgres-run-iowa:
+  redis-iowa:
+  postgresql_data-iowa:
     driver: local
 
 
