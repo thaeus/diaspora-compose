@@ -1,7 +1,7 @@
 version: '2'
 services:
-  sandiego.social.dockerfully.com:
-    container_name: sandiego.social.dockerfully.com
+  chicago.social.dockerfully.com:
+    container_name: chicago.social.dockerfully.com
     image: dockerfully/diaspora:latest 
     build:
       context: ../
@@ -16,8 +16,8 @@ services:
       - '3050:3050'
     restart: always
     environment:
-      - VIRTUAL_HOST=sandiego.social.dockerfully.com
-      - LETSENCRYPT_HOST=sandiego.social.dockerfully.com
+      - VIRTUAL_HOST=chicago.social.dockerfully.com
+      - LETSENCRYPT_HOST=chicago.social.dockerfully.com
     networks:
       - mongonet
     restart: always
@@ -30,14 +30,12 @@ services:
     read_only: false
     mem_limit: 8G
     image: 'bitnami/postgresql:11'
-    build:
-      context: ../postgresql
     tmpfs:
     - /tmp
     ports:
       - '5430:5430'
     volumes:
-      - 'postgresql_data:/bitnami/postgresql'
+      - 'postgresql_data-2:/bitnami/postgresql'
       - 'postgres-2:/var/lib/postgresql/data'
       - 'postgres-run-2:/var/run/postgresql'
     environment:
@@ -75,7 +73,7 @@ volumes:
   postgres-2:
   postgres-run-2:
   redis-2:
-  postgresql_data:
+  postgresql_data-2:
     driver: local
 
 

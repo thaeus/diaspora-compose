@@ -36,7 +36,7 @@ configuration: ## Section
     ## However changing http to https is okay and has no consequences.
     ## If you do change the URL, you will have to start again as the URL
     ## will be hardcoded into the database.
-    url: "https://sandiego.social.dockerfully.com/"
+    url: "https://chicago.social.dockerfully.com/"
 
     ## Set the bundle of certificate authorities (CA) certificates.
     ## This is specific to your operating system.
@@ -723,7 +723,7 @@ configuration: ## Section
 production: ## Section
   environment: ## Section
     #redis: 'redis://production.example.org:6379'
-    #redis: 'redis://redis.sandiego.social.dockerfully.com:6379'
+    #redis: 'redis://redis.chicago.social.dockerfully.com:6379'
 
 development: ## Section
   environment: ## Section
