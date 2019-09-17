@@ -36,7 +36,7 @@ configuration: ## Section
     ## However changing http to https is okay and has no consequences.
     ## If you do change the URL, you will have to start again as the URL
     ## will be hardcoded into the database.
-    url: "https://chicago.social.dockerfully.com/"
+    url: "https://nyc.social.dockerfully.com/"
 
     ## Set the bundle of certificate authorities (CA) certificates.
     ## This is specific to your operating system.
@@ -51,7 +51,7 @@ configuration: ## Section
     #redis: 'redis://example_host'
     #redis: 'redis://username:password@host:6379/0'
     #redis: 'unix:///tmp/redis.sock'
-    redis: 'redis://redis-2:6389'
+    redis: 'redis://redis-nyc:6399'
 
     ## Require SSL (default=true).
     ## When set, your pod will force the use of HTTPS in production mode.
@@ -177,7 +177,7 @@ configuration: ## Section
     #listen: 'unix:tmp/diaspora.sock'
     #listen: 'unix:/run/diaspora/diaspora.sock'
     #listen: '127.0.0.1:3000'
-    listen: '0.0.0.0:3050'
+    listen: '0.0.0.0:3059'
 
     ## Set the path for the PID file of the unicorn master process (default=tmp/pids/web.pid)
     #pid: 'tmp/pids/web.pid'

@@ -1,23 +1,23 @@
 version: '2'
 services:
-  chicago.social.dockerfully.com:
-    container_name: chicago.social.dockerfully.com
+  nyc.social.dockerfully.com:
+    container_name: nyc.social.dockerfully.com
     image: dockerfully/diaspora:latest 
     build:
       context: ../
     links:
-      - postgres-2
-      - redis-2
+      - postgres-nyc
+      - redis-nyc
     volumes:
-      - diaspora-images-2:/home/diaspora/diaspora/public/uploads/images
+      - diaspora-images-nyc:/home/diaspora/diaspora/public/uploads/images
       - ./diaspora.yml:/home/diaspora/diaspora/config/diaspora.yml:ro
       - ./database.yml:/home/diaspora/diaspora/config/database.yml:ro
     ports:
-      - '3050:3050'
+      - '3059:3059'
     restart: always
     environment:
-      - VIRTUAL_HOST=chicago.social.dockerfully.com
-      - LETSENCRYPT_HOST=chicago.social.dockerfully.com
+      - VIRTUAL_HOST=nyc.social.dockerfully.com
+      - LETSENCRYPT_HOST=nyc.social.dockerfully.com
     networks:
       - mongonet
     restart: always
@@ -25,33 +25,33 @@ services:
 
 
 
-  postgres-2:
-    container_name: postgres-2
+  postgres-nyc:
+    container_name: postgres-nyc
     read_only: false
     mem_limit: 8G
     image: 'bitnami/postgresql:11'
     tmpfs:
     - /tmp
     ports:
-      - '5430:5430'
+      - '5550:5550'
     volumes:
-      - 'postgresql_data-2:/bitnami/postgresql'
-      - 'postgres-2:/var/lib/postgresql/data'
-      - 'postgres-run-2:/var/run/postgresql'
+      - 'postgresql_data-nyc:/bitnami/postgresql'
+      - 'postgres-nyc:/var/lib/postgresql/data'
+      - 'postgres-run-nyc:/var/run/postgresql'
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
 #      - 'POSTGRES_PASSWORD=somepassword123'
       - 'POSTGRES_DATABASE=diaspora_production'
       - 'POSTGRES_USERNAME=diaspora'
-      - 'POSTGRESQL_PORT_NUMBER=5430'
+      - 'POSTGRESQL_PORT_NUMBER=5550'
     restart: always
     networks:
       - mongonet
 
 
 
-  redis-2:
-    container_name: redis-2
+  redis-nyc:
+    container_name: redis-nyc
     image: dockerfully/redis:latest
     build:
       context: ../redis/5.0
@@ -59,9 +59,9 @@ services:
     read_only: false
     tmpfs:
     - /tmp
-    command: redis-server --port 6389 --appendonly yes
+    command: redis-server --port 6399 --appendonly yes
     volumes:
-      - redis-2:/data
+      - redis-nyc:/data
     restart: always
     networks:
       - mongonet
@@ -69,11 +69,11 @@ services:
 
 
 volumes:
-  diaspora-images-2:
-  postgres-2:
-  postgres-run-2:
-  redis-2:
-  postgresql_data-2:
+  diaspora-images-nyc:
+  postgres-nyc:
+  postgres-run-nyc:
+  redis-nyc:
+  postgresql_data-nyc:
     driver: local
 
 
