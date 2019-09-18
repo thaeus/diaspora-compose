@@ -1,5 +1,28 @@
 # diaspora-docker
 
+
+# My aim was to expand on the wonderful docker compose image that was already created.
+
+My modification was to include the bitnami postgres container to address issues of data corruption that I may have been the cause of.  Regardless, I have
+a working solution along with a process that will allow you to fill in appropriate variables and deploy diaspora in one command.
+
+1. git clone this repository
+2. cd compose
+3. docker-compose up
+4. docker exec -it postgres-<loc> bash
+5. createuser -U postgres -p5566 diaspora
+6. psql -U postgres -p5566
+7. postgres=# alter user diaspora with superuser;
+8. createdb -U diaspora -p 5566 diaspora_production;
+
+//bring stack down and back up again.  the database should populate now.
+9. docker-compose down
+10. docker-compose up -d
+
+
+
+
+
 This project allows you to quickly and easily set up a Diaspora pod running inside a 
 collection of Docker containers. It allows users to run
 Diaspora with a minimum of system administration, and a minimum of knowledge
