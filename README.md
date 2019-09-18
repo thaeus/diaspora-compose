@@ -3,24 +3,23 @@
 
 # My aim was to expand on the wonderful docker compose image that was already created.
 
-My modification was to include the bitnami postgres container to address issues of data corruption that I had to get around.  Regardless, I have
-a working solution along with a process that will allow you to fill in appropriate variables and deploy diaspora in a repeatable and consistent manner.  
+My modification was to include the bitnami postgres container to address issues of data corruption that weree happening in my particular case.  While studying this issue, I ended up developing my own working solution along with a process that will allow you to fill in appropriate variables and deploy diaspora in a repeatable and consistent manner.  
 
 1. git clone this repository
 2. cd compose
 3. docker-compose up
-4. docker exec -it postgres-<loc> bash
-5. createuser -U postgres -p5566 diaspora
-6. psql -U postgres -p5566
+4. docker exec -it <postgres-*> bash
+5. createuser -U postgres -p<postgres_port> diaspora
+6. psql -U postgres -p<postgres_port>
 7. postgres=# alter user diaspora with superuser;
-8. createdb -U diaspora -p 5566 diaspora_production;
+8. createdb -U diaspora -p<postgres_port> diaspora_production;
 
 9. //bring stack down and back up again.  the database should populate now.
 10. docker-compose down
 11. docker-compose up -d
 
 
-# Thank you (see the [compose directory](https://gitlab.koehn.com/docker/diaspora/tree/master/compose) for giving me a base to work from
+# Thank you (see the [compose directory](https://gitlab.koehn.com/docker/diaspora/tree/master/compose) for giving me a base to work from)
 
 
 
