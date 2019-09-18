@@ -1,23 +1,23 @@
 version: '2'
 services:
-  iowa.social.dockerfully.com:
-    container_name: iowa.social.dockerfully.com
+  sandiego.social.dockerfully.com:
+    container_name: sandiego.social.dockerfully.com
     image: dockerfully/diaspora:latest 
     build:
       context: ../
     links:
-      - postgres-iowa
-      - redis-iowa
+      - postgres-sandiego
+      - redis-sandiego
     volumes:
-      - diaspora-images-iowa:/home/diaspora/diaspora/public/uploads/images
+      - diaspora-images-sandiego:/home/diaspora/diaspora/public/uploads/images
       - ./diaspora.yml:/home/diaspora/diaspora/config/diaspora.yml:ro
       - ./database.yml:/home/diaspora/diaspora/config/database.yml:ro
     ports:
-      - '3069:3069'
+      - '3070:3070'
     restart: always
     environment:
-      - VIRTUAL_HOST=iowa.social.dockerfully.com
-      - LETSENCRYPT_HOST=iowa.social.dockerfully.com
+      - VIRTUAL_HOST=sandiego.social.dockerfully.com
+      - LETSENCRYPT_HOST=sandiego.social.dockerfully.com
     networks:
       - mongonet
     restart: always
@@ -25,33 +25,33 @@ services:
 
 
 
-  postgres-iowa:
-    container_name: postgres-iowa
+  postgres-sandiego:
+    container_name: postgres-sandiego
     read_only: false
     mem_limit: 8G
     image: 'bitnami/postgresql:11'
     tmpfs:
     - /tmp
     ports:
-      - '5566:5566'
+      - '5567:5567'
     volumes:
-      - 'postgresql_data-iowa:/bitnami/postgresql'
-      - 'postgres-iowa:/var/lib/postgresql/data'
-      - 'postgres-run-iowa:/var/run/postgresql'
+      - 'postgresql_data-sandiego:/bitnami/postgresql'
+      - 'postgres-sandiego:/var/lib/postgresql/data'
+      - 'postgres-run-sandiego:/var/run/postgresql'
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
 #      - 'POSTGRES_PASSWORD=somepassword123'
       - 'POSTGRES_DATABASE=diaspora_production'
       - 'POSTGRES_USERNAME=diaspora'
-      - 'POSTGRESQL_PORT_NUMBER=5566'
+      - 'POSTGRESQL_PORT_NUMBER=5567'
     restart: always
     networks:
       - mongonet
 
 
 
-  redis-iowa:
-    container_name: redis-iowa
+  redis-sandiego:
+    container_name: redis-sandiego
     image: dockerfully/redis:latest
     build:
       context: ../redis/5.0
@@ -59,9 +59,9 @@ services:
     read_only: false
     tmpfs:
     - /tmp
-    command: redis-server --port 7899 --appendonly yes
+    command: redis-server --port 7900 --appendonly yes
     volumes:
-      - redis-iowa:/data
+      - redis-sandiego:/data
     restart: always
     networks:
       - mongonet
@@ -69,11 +69,11 @@ services:
 
 
 volumes:
-  diaspora-images-iowa:
-  postgres-iowa:
-  postgres-run-iowa:
-  redis-iowa:
-  postgresql_data-iowa:
+  diaspora-images-sandiego:
+  postgres-sandiego:
+  postgres-run-sandiego:
+  redis-sandiego:
+  postgresql_data-sandiego:
     driver: local
 
 

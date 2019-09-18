@@ -1,7 +1,7 @@
 postgresql: &postgresql
   adapter: postgresql
-  host: postgres-iowa
-  port: 5566
+  host: postgres-sandiego
+  port: 5567
   username: diaspora
   password: somepassword123
   encoding: unicode
